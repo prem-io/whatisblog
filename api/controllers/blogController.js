@@ -1,28 +1,57 @@
-const router = require("express").Router()
+const express = require("express");
+const multer = require("multer");
+const sharp = require("sharp");
+
+const router = express.Router()
 
 const Blog = require("../models/Blog");
 const authenticateUser = require("../middlewares/authentication");
 
-router.get("/all", (req, res) => {
-    Blog.find()
-        .then(blogs => res.send(blogs))
-        .catch(err => res.send(err))
+const upload = multer({ 
+    limits: {
+        fileSize: 5000000
+    },
+    fileFilter(req, file, cb) {
+        if(!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            return cb(new Error('Please upload a .jpg or .png image file'))
+        }
+        cb(undefined, true)
+    }
 })
 
-router.get("/:id", (req, res) => {
-    const id = req.params.id
-    Blog.findOne({ _id: id }).populate('comments.comment')
-        .then(blog => res.send(blog))
-        .catch(err => res.send(err))
-})
-
-router.post("/", authenticateUser, (req, res) => {
+router.post("/", authenticateUser, upload.single('image'), async (req, res) => {
     const {user} = req
     const body = req.body
+    
+    const buffer = await sharp(req.file.buffer).resize({width: 600, height: 355 }).png().toBuffer()
+    body.imageUrl = buffer
+
     const blog = new Blog(body)
     blog.user = user._id
-    blog.save()
+    
+    await blog.save()
         .then(blog => res.send(blog))
+        .catch(err => res.send(err))
+}, (error, req, res, next) => {
+    res.status(400).send({ error: error.message })
+})
+
+router.get('/:id', (req, res) => {
+    const id = req.params.id
+    Blog.findOne({_id: id}).populate('comments.comment')
+        .then(blog => {
+            if(!blog || !blog.imageUrl) {
+                throw new Error()
+            }
+            res.set('Content-Type', 'image/png')
+            res.send(blog)
+        })
+        .catch(err => res.status(404).send({}))
+})
+
+router.get("/", (req, res) => {
+    Blog.find()
+        .then(blogs => res.send(blogs))
         .catch(err => res.send(err))
 })
 

@@ -3,26 +3,21 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema
 const blogSchema = new Schema({
     title: {
-        type: String,
-        required: true,
-    },
-    imageUrl: {
         type: String
     },
     description: {
-        type: String,
-        required: true
+        type: String
     },
-    tags: {
-        type: [String]
-    },
-    user: {
-        type: Schema.Types.ObjectId,
-        ref: "User"
+    imageUrl: {
+        type: Buffer
     },
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
     },
     comments: [{
         comment: {
