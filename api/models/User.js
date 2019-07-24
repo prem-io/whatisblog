@@ -33,8 +33,8 @@ const userSchema = new Schema({
     bio: {
         type: String
     },
-    imageUrl: {
-        type: String
+    avatar: {
+        type: Buffer
     },
     tokens: [
         {

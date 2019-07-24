@@ -25,7 +25,8 @@
   "homepage": "https://github.com/web-geek/WhatisBlog#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.6.5"
+    "mongoose": "^5.6.5",
+    "multer": "^1.4.2"
   },
   "devDependencies": {
     "bcryptjs": "^2.4.3",
@@ -33,6 +34,7 @@
     "cors": "^2.8.5",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "sharp": "^0.22.1",
     "validator": "^11.1.0"
   }
 }

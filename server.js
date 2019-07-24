@@ -3,7 +3,7 @@ const mongoose = require("./config/database");
 const cors = require('cors');
 
 const userRouter = require("./api/controllers/userController");
-const postRouter = require("./api/controllers/postController");
+const blogRouter = require("./api/controllers/blogController");
 const commentRouter = require("./api/controllers/commentController");
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/users", userRouter);
-app.use("/posts", postRouter);
+app.use("/blogs", blogRouter);
 app.use("/comments", commentRouter);
 
 app.listen(PORT, () => {
