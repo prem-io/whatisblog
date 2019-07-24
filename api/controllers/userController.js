@@ -40,7 +40,6 @@ router.delete('/logout', authenticateUser, (req, res) => {
         })
 })
 
-// upload image routes
 const upload = multer({ 
     limits: {
         fileSize: 1000000
@@ -53,6 +52,7 @@ const upload = multer({
     }
 })
 
+// sharp is an aync operation so make use of async await to store avatar
 router.post('/avatar', authenticateUser, upload.single('avatar'), async (req, res) => {
     const buffer = await sharp(req.file.buffer).resize({width: 250, height: 250 }).png().toBuffer()
     req.user.avatar = buffer
@@ -62,17 +62,16 @@ router.post('/avatar', authenticateUser, upload.single('avatar'), async (req, re
     res.status(400).send({ error: error.message })
 })
 
-router.get('/:id/avatar', async (req, res) => {
-    try {
-        const user = await User.findById(req.params.id)
-        if(!user || !user.avatar) {
-            throw new Error()
-        }
-        res.set('Content-Type', 'image/png')
-        res.send(user.avatar)
-    } catch (e) {
-        res.status(404).send({})
-    }
+router.get('/:id/avatar', (req, res) => {
+    User.findById(req.params.id)
+        .then(user => {
+            if(!user || !user.avatar) {
+                throw new Error()
+            }
+            res.set('Content-Type', 'image/png')
+            res.send(user.avatar)
+        })
+        .catch(err => res.status(404).send({}))
 })
 
 router.delete('/avatar', authenticateUser, async (req, res) => {
