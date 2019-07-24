@@ -1,33 +1,32 @@
 import React, { Component } from 'react';
-import axios from '../../config/axios';
+import {axios} from '../../config/axios';
 import {Link} from 'react-router-dom';
 
-export class ListPosts extends Component {
+export class ListBlogs extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            posts: []
+            blogs: []
         }
     }
 
     componentDidMount() {
         axios.get("/blogs")
             .then(response => {
-                this.setState({posts: response.data})
+                this.setState({blogs: response.data})
             })
     }
 
     render() {
-        console.log(this.state)
-        const { posts } = this.state
+        const { blogs } = this.state
         return (
             <div>
                 All-posts
                 {
-                    posts.map(post => {
-                        return <div key={post._id}>
-                            <h3>{post.title}</h3>
-                            <Link to={`/blogs/${post._id}`}>Read more..</Link>
+                    blogs.map(blog => {
+                        return <div key={blog._id}>
+                            <h3>{blog.title}</h3>
+                            <Link to={`/blogs/${blog._id}`}>Read more..</Link>
                         </div>
                     })
                 }
@@ -36,4 +35,4 @@ export class ListPosts extends Component {
     }
 }
 
-export default ListPosts
+export default ListBlogs

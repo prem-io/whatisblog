@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import axios from '../../config/axios';
 import {Link} from 'react-router-dom';
 
-export class NewPost extends Component {
+class FormBlog extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -10,6 +9,13 @@ export class NewPost extends Component {
             description: '',
             imageUrl: null
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState(() => ({
+            title: nextProps.blog.title,
+            description: nextProps.blog.description
+        }))
     }
 
     handleChange = (e) => {
@@ -33,23 +39,8 @@ export class NewPost extends Component {
         formData.append('title', this.state.title)
         formData.append('description', this.state.description)
         formData.append('image', this.state.imageUrl, this.state.imageUrl.name);
-        
-        const config = {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'x-auth': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZDM3ZGJlNjdhN2M0MzEyYThmNzc0YjYiLCJjcmVhdGVkQXQiOjE1NjM5NDIwMzg5ODYsImlhdCI6MTU2Mzk0MjAzOH0.c5SgXtJYm77z_qEiUAdiATCLDU9C5_XheeXDsF9agjM"
-            }
-        }
 
-        axios.post("/blogs", formData, config)
-            .then((response) => {
-                console.log(response.data)
-            })
-            .catch((error) => {
-                console.log(error)
-            });
-
-        console.log(formData)
+        this.props.handleSubmit(formData)
     }
 
     render() {
@@ -74,7 +65,7 @@ export class NewPost extends Component {
 							name="description"
 							value={this.state.description}
 							className="form-control"
-							rows="2"
+							rows="6"
 							placeholder="Description"
 							onChange={this.handleChange}
 						></textarea>
@@ -94,4 +85,4 @@ export class NewPost extends Component {
     }
 }
 
-export default NewPost
+export default FormBlog

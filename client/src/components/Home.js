@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-// import axios from '../config/axios';
 import {Link} from 'react-router-dom';
 
-import ListPosts from './Posts/ListPosts';
+import ListBlogs from './Blogs/ListBlogs';
 
 class Home extends Component {
 
@@ -11,7 +10,7 @@ class Home extends Component {
             <div>
                 <h2>Home Page</h2>
                 <Link to="/blogs/add">Create Blog</Link>
-                <ListPosts />
+                <ListBlogs />
             </div>
         )
     }
