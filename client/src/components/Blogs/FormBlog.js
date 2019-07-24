@@ -55,7 +55,8 @@ class FormBlog extends Component {
 							className="form-control"
 							value={this.state.title}
 							placeholder="Title"
-							onChange={this.handleChange}
+                            onChange={this.handleChange}
+                            required
 						/>
 					</div>
 
@@ -67,13 +68,14 @@ class FormBlog extends Component {
 							className="form-control"
 							rows="6"
 							placeholder="Description"
-							onChange={this.handleChange}
+                            onChange={this.handleChange}
+                            required
 						></textarea>
 					</div>
 
                     <div className="form-group">
                         <h5 className="card-title">Upload Image</h5>
-                        <input type="file" name="imageUrl" onChange={this.fileHandle}/>
+                        <input type="file" name="imageUrl" onChange={this.fileHandle} required/>
                     </div>
                     
 					<button type="submit" className="btn btn-primary">Submit</button>

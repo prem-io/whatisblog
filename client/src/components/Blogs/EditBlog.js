@@ -3,7 +3,7 @@ import {axios, headers} from '../../config/axios';
 
 import FormBlog from './FormBlog';
 
-class EditPost extends Component {
+class EditBlog extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -38,4 +38,4 @@ class EditPost extends Component {
     }
 }
 
-export default EditPost
+export default EditBlog
