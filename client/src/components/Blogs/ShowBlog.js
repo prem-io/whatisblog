@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {axios} from '../../config/axios';
+import {axios, headers} from '../../config/axios';
 import {Link} from 'react-router-dom';
 import base64Arraybuffer from 'base64-arraybuffer';
 import Loader from '../Loader';
@@ -39,6 +39,17 @@ export class ShowPost extends Component {
             })
     }
 
+    handleRemove = () => {
+        const id = this.props.match.params.id
+        const confirmRemove = window.confirm('Are you sure?')
+        if(confirmRemove) {
+            axios.delete(`/blogs/${id}`, headers)
+				.then((response) => {
+					this.props.history.push('/blogs')
+				})
+        }
+    }
+
     render() {
         let {_id, title, description, createdAt, img} = this.state
         if(_id) {
@@ -46,24 +57,28 @@ export class ShowPost extends Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8">
-                            <div className="row">
-                                <div className="col">
-                                    <h2 className="mt-4">{title}</h2>
-                                </div>
-                                <div className="col">
-                                    <div className="float-right mt-4">
-                                        <button className="btn btn-outline-info mr-2">Edit</button>
-                                        <button className="btn btn-outline-danger">Delete</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <h2 className="mt-4">{title}</h2>
                             <hr/>
                             <span>Posted on <em>{createdAt}</em></span>
                             <hr/>
                             <img className="img-fluid rounded" src={img} alt=""/>
                             <hr/>
                             <p className="lead">{description}</p>
-                            <Link style={{color: 'Black'}} to="/">Back</Link>
+                            <div className="row">
+                                <div className="col">
+                                    <Link style={{color: 'Black'}} to="/">Back</Link>
+                                </div>
+                                <div className="col">
+                                    <div className="float-right">
+                                        <Link
+                                            className="btn btn-outline-info mr-2"
+                                            to={`/blogs/edit/${this.props.match.params.id}`}>Edit</Link>
+                                        <button
+                                            className="btn btn-outline-danger"
+                                            onClick={this.handleRemove}>Delete</button>
+                                    </div>
+                                </div>
+                            </div>
                             <hr/>
                             <Comment comments={this.state.comments}/>
                         </div>

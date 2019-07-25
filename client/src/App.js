@@ -1,13 +1,14 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import Home from './components/Home';
 import Header from './components/Header';
+import Home from './components/Home';
+import Register from './components/User/Register';
+import Login from './components/User/Login';
 import NewBlog from './components/Blogs/NewBlog';
 import ListBlogs from './components/Blogs/ListBlogs';
 import ShowBlog from './components/Blogs/ShowBlog';
 import EditBlog from './components/Blogs/EditBlog';
-import Footer from './components/Footer';
 
 function App() {
     return (
@@ -16,12 +17,13 @@ function App() {
                 <Header />
                     <Switch>
                         <Route exact path="/" component={Home}/>
+                        <Route path="/register" component={Register}/>
+                        <Route path="/login" component={Login}/>
                         <Route path="/blogs/add" component={NewBlog}/>
                         <Route path="/blogs/edit/:id" component={EditBlog}/>
                         <Route path="/blogs/:id" component={ShowBlog}/>
                         <Route path="/blogs" component={ListBlogs}/>
                     </Switch>
-                <Footer />
             </div>
         </BrowserRouter>
     )

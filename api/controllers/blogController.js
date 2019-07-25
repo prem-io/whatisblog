@@ -22,7 +22,6 @@ const upload = multer({
 router.post("/", authenticateUser, upload.single('image'), async (req, res) => {
     const {user} = req
     const body = req.body
-    console.log("POST", body)
     const buffer = await sharp(req.file.buffer).resize({width: 600, height: 350 }).png().toBuffer()
     body.imageUrl = buffer
 
@@ -59,7 +58,6 @@ router.put("/:id", authenticateUser, (req, res) => {
     const {user} = req
     const id = req.params.id
     const body = req.body
-    console.log("PUT", body)
     Blog.findOneAndUpdate({_id: id, user: user._id}, {$set: body}, {new: true, runValidators: true})
         .then(blog => {
             if(!blog){
