@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {axios, headers} from '../../config/axios';
+import {axios} from '../../config/axios';
 import {Link} from 'react-router-dom';
 
 export class Login extends Component {
@@ -18,20 +18,23 @@ export class Login extends Component {
         })
     }
 
-    // handleSubmit = (e) => {
-    //     e.preventDefault()
-    //     const formData = {
-    //         email: this.state.email,
-    //         password: this.state.password
-    //     }
-    //     axios.post("/login", formData)
-    //         .then(response => {
-    //             console.log(response.data)
-    //             if(response.data.error){
-
-    //             }
-    //         })
-    // }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        const formData = {
+            email: this.state.email,
+            password: this.state.password
+        }
+        axios.post("/users/login", formData)
+            .then(response => {
+                if(response.data.token) {
+                    localStorage.setItem("userAuthToken", response.data.token)
+                    this.props.history.push("/")
+                } else {
+                    alert("user not found")
+                    this.props.history.push("/register")
+                }
+            })
+    }
     
     render() {
         return (

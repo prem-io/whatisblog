@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {axios, headers} from '../../config/axios';
-import {withRouter, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import base64Arraybuffer from 'base64-arraybuffer';
 import Loader from '../Loader';
 
@@ -38,7 +39,8 @@ class ListBlogs extends Component {
     }
 
     render() {
-        const { blogs } = this.state
+        const {blogs} = this.state
+        const {user} = this.props
         return (
             <div className="container pt-4">
                 {blogs.length === 0 && <Loader />}
@@ -58,7 +60,7 @@ class ListBlogs extends Component {
                                             </div>
                                             <div className="col">
                                                 {
-                                                    this.state.isAdmin && <div className="float-right">
+                                                    (user.role === "admin") && <div className="float-right">
                                                         <Link className="btn btn-outline-info btn-sm mr-2" to={`/blogs/edit/${blog._id}`}>Edit</Link>	
                                                         <button type="button" className="btn btn-outline-danger btn-sm"
                                                             onClick={this.handleRemove.bind(this, `${blog._id}`)}>Delete</button>
@@ -77,4 +79,10 @@ class ListBlogs extends Component {
     }
 }
 
-export default withRouter(ListBlogs);
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(ListBlogs);

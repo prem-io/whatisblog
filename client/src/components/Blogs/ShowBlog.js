@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {axios, headers} from '../../config/axios';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import base64Arraybuffer from 'base64-arraybuffer';
 import Loader from '../Loader';
 import Comment from './Comment';
@@ -51,6 +52,7 @@ export class ShowPost extends Component {
     }
 
     render() {
+        const user = this.props
         let {_id, title, description, createdAt, img} = this.state
         if(_id) {
             return (
@@ -69,14 +71,15 @@ export class ShowPost extends Component {
                                     <Link style={{color: 'Black'}} to="/">Back</Link>
                                 </div>
                                 <div className="col">
-                                    <div className="float-right">
-                                        <Link
-                                            className="btn btn-outline-info mr-2"
+                                    {
+                                        (user.role === "admin") && <div className="float-right">
+                                        <Link className="btn btn-outline-info mr-2"
                                             to={`/blogs/edit/${this.props.match.params.id}`}>Edit</Link>
                                         <button
                                             className="btn btn-outline-danger"
                                             onClick={this.handleRemove}>Delete</button>
-                                    </div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             <hr/>
@@ -93,5 +96,11 @@ export class ShowPost extends Component {
         }
     }
 }
-// "http://placehold.it/900x300"
-export default ShowPost
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user
+    }
+}
+
+export default connect(mapStateToProps)(ShowPost)
