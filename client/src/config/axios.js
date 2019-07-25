@@ -1,8 +1,8 @@
 import Axios from 'axios';
 
 export const axios = Axios.create({
-    // baseURL: 'http://localhost:3001'
-    baseURL: '/'
+    baseURL: 'http://localhost:3001'
+    // baseURL: '/'
 })
 
 export const headers = {
