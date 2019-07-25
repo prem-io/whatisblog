@@ -1,0 +1,29 @@
+.center {
+  margin: auto;
+  width: 60%;
+  padding-top: 200px;
+}
+
+.contact{
+  text-decoration:none; 
+  color: #0062cc;
+  border-bottom:2px solid #0062cc;
+}
+
+.contact:hover {
+  text-decoration:none;
+}
+
+.box-part{
+    padding:20px 10px;
+    margin:20px 0px;
+}
+
+.text{
+    margin:20px 0px;
+}
+
+.round {
+  border-radius: 50%;
+  width: 50%;
+}

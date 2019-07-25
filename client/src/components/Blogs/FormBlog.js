@@ -70,7 +70,7 @@ class FormBlog extends Component {
 							placeholder="Description"
                             onChange={this.handleChange}
                             required
-						></textarea>
+						/>
 					</div>
 
                     <div className="form-group">
