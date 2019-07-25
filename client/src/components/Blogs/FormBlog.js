@@ -38,7 +38,9 @@ class FormBlog extends Component {
 
         formData.append('title', this.state.title)
         formData.append('description', this.state.description)
-        formData.append('image', this.state.imageUrl, this.state.imageUrl.name);
+        if(this.state.imageUrl !== null){
+            formData.append('image', this.state.imageUrl, this.state.imageUrl.name);
+        }
 
         this.props.handleSubmit(formData)
     }
@@ -75,7 +77,7 @@ class FormBlog extends Component {
 
                     <div className="form-group">
                         <h5 className="card-title">Upload Image</h5>
-                        <input type="file" name="imageUrl" onChange={this.fileHandle} required/>
+                        <input type="file" name="imageUrl" onChange={this.fileHandle}/>
                     </div>
                     
 					<button type="submit" className="btn btn-primary">Submit</button>

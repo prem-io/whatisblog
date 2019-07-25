@@ -11,7 +11,7 @@ import EditBlog from './components/Blogs/EditBlog';
 function App() {
     return (
         <BrowserRouter>
-            <div className="container pt-2">
+            <div>
                 <Header />
                 <Switch>
                     <Route exact path="/" component={Home}/>

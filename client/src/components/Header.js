@@ -9,7 +9,8 @@ class Header extends Component {
         super(props);
     
         this.state = {
-          isOpen: false
+          isOpen: false,
+          isAdmin: true
         };
 
         this.toggle = this.toggle.bind(this);
@@ -31,9 +32,11 @@ class Header extends Component {
                         <NavItem>
                             <NavLink href="/blogs">Explore</NavLink>
                         </NavItem>
-                        <NavItem>
-                            <NavLink href="/blogs/add">Create</NavLink>
-                        </NavItem>
+                        {
+                            this.state.isAdmin && <NavItem>
+                                <NavLink href="/blogs/add">Create</NavLink>
+                            </NavItem>
+                        }
                         <NavItem>
                             <NavLink href="/register">Register</NavLink>
                         </NavItem>

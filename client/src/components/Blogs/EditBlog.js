@@ -30,8 +30,8 @@ class EditBlog extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Edit Blog</h2>
+            <div className="container pt-3">
+            <h4 className="text-center">Edit Blog</h4>
                 <FormBlog blog={this.state.blog} handleSubmit={this.handleSubmit}/>
             </div>
         )

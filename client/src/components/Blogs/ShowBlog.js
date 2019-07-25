@@ -11,6 +11,7 @@ export class ShowPost extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            _id: '',
             user: {},
             avatar: '',
             title: '',
@@ -25,8 +26,8 @@ export class ShowPost extends Component {
         const id = this.props.match.params.id
         axios.get(`/blogs/${id}`)
             .then(response => {
-                console.log(response.data)
                 this.setState({
+                    _id: response.data._id,
                     user: response.data.user,
                     avatar: 'data:image/jpeg;base64,'+ base64Arraybuffer.encode(response.data.user.avatar.data),
                     title: response.data.title,
@@ -39,15 +40,25 @@ export class ShowPost extends Component {
     }
 
     render() {
-        let {title, description, createdAt, img, comments} = this.state
-        if(title) {
+        let {_id, title, description, createdAt, img} = this.state
+        if(_id) {
             return (
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8">
-                            <h2 className="mt-4">{title}</h2>
+                            <div className="row">
+                                <div className="col">
+                                    <h2 className="mt-4">{title}</h2>
+                                </div>
+                                <div className="col">
+                                    <div className="float-right mt-4">
+                                        <button className="btn btn-outline-info mr-2">Edit</button>
+                                        <button className="btn btn-outline-danger">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
                             <hr/>
-                            <p>Posted on <em>{createdAt}</em></p>
+                            <span>Posted on <em>{createdAt}</em></span>
                             <hr/>
                             <img className="img-fluid rounded" src={img} alt=""/>
                             <hr/>
