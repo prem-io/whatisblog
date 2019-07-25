@@ -47,7 +47,7 @@ class FormBlog extends Component {
 
     render() {
         return (
-            <div className="card">
+            <div className="container pb-4">
 				<form className="card-body" onSubmit={this.handleSubmit}>
 					<div className="form-group">
 						<h5 className="card-title">Title</h5>

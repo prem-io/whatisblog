@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
+import logo from '../assets/logo.svg';
 
-import {
-    Navbar, NavbarToggler, NavbarBrand,
-    Nav, NavItem, NavLink, Collapse} from 'reactstrap';
+import { Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Collapse} from 'reactstrap';
 
 class Header extends Component {
     constructor(props) {
@@ -25,10 +24,11 @@ class Header extends Component {
     render() {
         return (
             <Navbar color="light" light expand="md">
+                <img src={logo} width="30" height="30" className="ml-5 mr-2" alt="..."/>
                 <NavbarBrand href="/">whatisBlog</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
+                    <Nav className="ml-auto mr-5" navbar>
                         <NavItem>
                             <NavLink href="/blogs">Explore</NavLink>
                         </NavItem>

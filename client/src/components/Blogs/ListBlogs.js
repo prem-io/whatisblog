@@ -40,8 +40,7 @@ class ListBlogs extends Component {
     render() {
         const { blogs } = this.state
         return (
-            <div className="container">
-                <h3 className="text-center mb-3">All-Posts</h3>
+            <div className="container pt-4">
                 {blogs.length === 0 && <Loader />}
                 <div className="row">
                     {

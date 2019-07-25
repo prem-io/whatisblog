@@ -14,8 +14,7 @@ function NewBlog(props) {
     }
 
     return (
-        <div className="container pt-3">
-            <h4 className="text-center">New Blog</h4>
+        <div className="container">
             <FormBlog handleSubmit={handleSubmit}/>
         </div>
     )
