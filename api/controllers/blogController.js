@@ -23,7 +23,7 @@ router.post("/", authenticateUser, upload.single('image'), async (req, res) => {
     const {user} = req
     const body = req.body
     
-    const buffer = await sharp(req.file.buffer).resize({width: 600, height: 355 }).png().toBuffer()
+    const buffer = await sharp(req.file.buffer).resize({width: 600, height: 350 }).png().toBuffer()
     body.imageUrl = buffer
 
     const blog = new Blog(body)
@@ -38,7 +38,7 @@ router.post("/", authenticateUser, upload.single('image'), async (req, res) => {
 
 router.get('/:id', (req, res) => {
     const id = req.params.id
-    Blog.findOne({_id: id}).populate('comments.comment')
+    Blog.findOne({_id: id}).populate('user', ['role', 'username', 'email', 'bio', 'avatar']).populate('comments.comment')
         .then(blog => {
             if(!blog || !blog.imageUrl) {
                 throw new Error()
@@ -59,6 +59,7 @@ router.put("/:id", authenticateUser, (req, res) => {
     const {user} = req
     const id = req.params.id
     const body = req.body
+
     Blog.findOneAndUpdate({_id: id, user: user._id}, {$set: body}, {new: true, runValidators: true})
         .then(blog => {
             if(!blog){
