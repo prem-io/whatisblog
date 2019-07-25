@@ -31,37 +31,28 @@ class Header extends Component {
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto mr-5" navbar>
-                            {(!_.isEmpty(user)) &&
+                            <NavItem>
+                                <NavLink href="/blogs">Explore</NavLink>
+                            </NavItem>
+                            {
+                                (user.role === "admin") && <NavItem>
+                                <NavLink href="/blogs/add">Create</NavLink>
+                                </NavItem>
+                            }
+                            {_.isEmpty(user) ? (
                                 <>
                                 <NavItem>
-                                    <NavLink href="/blogs">Explore</NavLink>
+                                    <NavLink href="/register">Register</NavLink>
                                 </NavItem>
-                                {
-                                    (user.role === "admin") && <NavItem>
-                                    <NavLink href="/blogs/add">Create</NavLink>
-                                    </NavItem>
-                                }
-                                {_.isEmpty(user) ? (
-                                    <>
-                                    <NavItem>
-                                        <NavLink href="/register">Register</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink href="/login">Login</NavLink>
-                                    </NavItem>
-                                    </>
-                                ) : (
-                                    <>
-                                    <NavItem>
-                                        <NavLink href="/register">Account</NavLink>
-                                    </NavItem>
-                                    <NavItem>
-                                        <NavLink href="/logout">Logout</NavLink>
-                                    </NavItem>
-                                    </>
-                                )}
+                                <NavItem>
+                                    <NavLink href="/login">Login</NavLink>
+                                </NavItem>
                                 </>
-                            }
+                            ) : (
+                                <NavItem>
+                                    <NavLink href="/logout">Logout</NavLink>
+                                </NavItem>
+                            )}
                         </Nav>
                     </Collapse>
                 </Navbar>
