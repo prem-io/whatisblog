@@ -9,8 +9,8 @@
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "engines": {
-    "node": "10.3.0",
-    "npm": "^6.8.0"
+    "node": "10.15.1",
+    "npm": "6.4.1"
   },
   "repository": {
     "type": "git",
@@ -29,16 +29,14 @@
   },
   "homepage": "https://github.com/web-geek/WhatisBlog#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "mongoose": "^5.6.6",
-    "multer": "^1.4.2"
-  },
-  "devDependencies": {
-    "bcryptjs": "^2.4.3",
+    "bcrypt": "^3.0.6",
     "concurrently": "^4.1.1",
     "cors": "^2.8.5",
+    "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
+    "mongoose": "^5.6.6",
+    "multer": "^1.4.2",
     "sharp": "^0.22.1",
     "validator": "^11.1.0"
   }
