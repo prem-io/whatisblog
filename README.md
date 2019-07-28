@@ -2,8 +2,6 @@
 
 https://whatisblog.herokuapp.com/
 
-To create, edit and delete you have to sign-in as admin. Admin Credentials - admin@gmail.com, admin@123
-
 # whatisblog
 
 Download the .zip file or clone the repository
